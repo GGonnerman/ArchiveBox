@@ -50,7 +50,7 @@ def parse_shaarli_rss_export(rss_file: IO[str], **_kwargs) -> Iterable[Link]:
         except nameerror:
             continue
 
-        if url == none or url == "": continue
+        if url == None or url == "": continue
 
         yield Link(
             url=htmldecode(url),
