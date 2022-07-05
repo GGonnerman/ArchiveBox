@@ -1,3 +1,13 @@
+Process for installing from source:<br>
+<ol>
+<li>Install docker</li>
+<li>git clone --recurse-submodules https://github.com/GGonnerman/ArchiveBox.git</li>
+<li>docker build . -t archivebox</li>
+<li> docker run -it -v $PWD/data:/data archivebox init --setup</li>
+<li>docker run -it -p 8000:8000 -v $PWD/data:/data archivebox server 0.0.0.0:8000</li>
+</ol>
+
+
 <div align="center">
 <em><img src="https://i.imgur.com/5B48E3N.png" height="90px"></em>
 <h1>ArchiveBox<br/><sub>Open-source self-hosted web archiving.</sub></h1>
