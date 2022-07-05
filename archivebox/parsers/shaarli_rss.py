@@ -36,16 +36,27 @@ def parse_shaarli_rss_export(rss_file: IO[str], **_kwargs) -> Iterable[Link]:
         def get_row(key):
             return [r.strip() for r in rows if r.strip().startswith('<{}'.format(key))][0]
 
+        def get_rows(key):
+            return [r.strip() for r in rows if r.strip().startswith('<{}'.format(key))]
+
         title = str_between(get_row('title'), '<title>', '</title>').strip()
         url = str_between(get_row('link'), '<link href="', '" />')
         ts_str = str_between(get_row('published'), '<published>', '</published>')
         time = datetime.strptime(ts_str, "%Y-%m-%dT%H:%M:%S%z")
+        tags = ",".join([htmldecode(str_between(tag_line, 'label="', '" />').strip()) for tag_line in get_rows('category')])
+
+        try:
+            url
+        except nameerror:
+            continue
+
+        if url == none or url == "": continue
 
         yield Link(
             url=htmldecode(url),
             timestamp=str(time.timestamp()),
             title=htmldecode(title) or None,
-            tags=None,
+            tags=tags or None,
             sources=[rss_file.name],
         )
 
