@@ -260,7 +260,7 @@ def chrome_args(**options) -> List[str]:
         cmd_args += ('--timeout={}'.format(options['TIMEOUT'] * 1000),)
 
     if options['CHROME_USER_DATA_DIR']:
-        cmd_args.append('--user-data-dir={}'.format(options['CHROME_USER_DATA_DIR']))
+        cmd_args.append('--user-data-dir={}/Default'.format(options['CHROME_USER_DATA_DIR']))
     
     return cmd_args
 
